@@ -1,6 +1,11 @@
 import cv2
-import time
 
-video = cv2.VideoCapture(0)
+img = cv2.imread('IMG_3951.JPG', -1)
+cv2.imshow('image', img)
+k = cv2.waitKey(0)
 
-video.release()
+if k == 27:
+    cv2.destroyAllWindows()
+elif k == ord('s'):
+    cv2.imwrite('test_copy.jpg', img)
+    cv2.destroyAllWindows()
