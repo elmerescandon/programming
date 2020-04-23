@@ -1,4 +1,3 @@
-import numpy as np
 import rotaciones as r
 
 R1 = r.rot(-90, 'z')
