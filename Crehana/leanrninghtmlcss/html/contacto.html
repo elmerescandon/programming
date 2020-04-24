@@ -8,11 +8,57 @@
       <title> Mi sitio web Crehana </title>
   </head>
   <body>
+    <!-- NOTE: Header o Encabezado -->
+    <header>
+      <div class="logo">
+        <img src="../img/cebiche.jpg" alt="Logo Cebiche" title="Mi sitio web" width="100px" >
+      </div>
+      <nav>
+        <ul>
+          <li> <a href="../index.html">Index</a></li>
+          <li> <a href="sobrenosotros.html">Sobre Nosotros</a> </li>
+          <li> <a href="portafolio.html">Portafolio</a> </li>
+          <li> <a href="contacto.html">Contacto</a> </li>
+        </ul>
+      </nav>
+    </header>
+    <hr>
 
-    <h1>Contacto</h1>
-    <a href="../index.html">Inicio</a>
-    <a href="sobrenosotros.html">Sobre nosotros</a>
-    <a href="portafolio.html">Portafolio</a>
-    <a href="contacto.html">Contacto</a>
+    <section>
+      <form>
+        <p>
+          <label for="nombre">Nombre:</label>
+          <input type="text" name="nombre" id="nombre" placeholder="Ingresa tu nombre">
+        </p>
+
+        <p>
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" placeholder="Ingresa tu correo electrónico">
+        </p>
+
+        <p>
+          <label for="mensaje">Mensaje:</label>
+          <textarea type="text" name="mensaje" id="mensaje" rows="8" cols="80" placeholder="Cuéntanos más sobre ti"></textarea>
+        </p>
+
+        <p>
+          <input type="submit" name="enviar" value="Enviar">
+        </p>
+
+
+      </form>
+    </section>
+
+
+    <!-- NOTE: Pie de página -->
+    <footer>
+      <div class="redessociales">
+        <ul>
+          <li><a href="http://www.facebook.com">Facebook</a></li>
+          <li><a href="http://www.twitter.com">Twitter</a></li>
+          <li><a href="http://www.Instagram.com">Instagram</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>
