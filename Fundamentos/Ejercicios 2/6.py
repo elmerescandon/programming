@@ -28,3 +28,11 @@ RR2 = r.rquater(q2)
 print(R3)
 # print(RR1)
 print(RR2)
+
+# Pregunta 3
+
+ejeang1 = r.ejeang(R2)
+ejeang2 = r.ejeang(R3)
+
+print(ejeang1)
+print(ejeang2)

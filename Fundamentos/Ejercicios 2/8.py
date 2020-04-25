@@ -31,7 +31,8 @@ def rotx(ang):
 
 # Generacion de variables simbolicas
 ph1, ph2, ph3 = sp.symbols("ph1 ph2 ph3")
-R = rotz(ph1)*rotx(ph2)*rotz(ph3)
+R = rotx(ph1)*roty(ph2)*rotz(ph3)
 
+print(R)
 
 # Parte B

@@ -29,12 +29,17 @@ def rot(th, a):
 
 
 def ejeang(R):
-
+    """
+    Funcion que devuelve la forma eje-angulo
+    a partir de una matriz de rotacion
+    Input: R de SO3
+    Output: - th (en radianes)
+            - u (unitario de forma ux,uy,uz)
+    """
     d1 = (R[1, 0] - R[0, 1])**2
     d2 = (R[2, 0] - R[0, 2])**2
     d3 = (R[2, 1] - R[1, 2])**2
     s = np.sqrt(d1+d2+d3)/2
-    print(d3)
     c = (R[0, 0] + R[1, 1] + R[2, 2] - 1)/2
     th = np.arctan2(s, c)
 
