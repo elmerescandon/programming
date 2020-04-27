@@ -50,14 +50,24 @@ def ejeang(R):
 
 
 def skew(u):
-    su = np.array([[0, -u[2], u[1]],
-                   [u[2], 0, -u[0]],
-                   [-u[1], u[0], 0]])
+    u1 = np.sqrt(u[1, 0]**2 + u[0, 0]**2 + u[2, 0]**2)
+    u = u/u1
+    su = np.array([[0, -u[2, 0], u[1, 0]],
+                   [u[2, 0], 0, -u[0, 0]],
+                   [-u[1, 0], u[0, 0], 0]])
     return su
 
 
 def rodr(th, u):
+    """
+    Función que retorna una matriz de rotación R
+    según un vector u(no necesariamente unitario) y
+    un vector th - Notación Eje-Ángulo
+    Input: th(deg) - u (ux,uy,uz)
+    Output: R (3,3)
+     """
     s = skew(u)
+    th = np.deg2rad(th)
     Ro = np.eye(3) + s*np.sin(th) + s.dot(s)*(1-np.cos(th))
     return Ro
 
@@ -66,7 +76,6 @@ def matriz_so3(R):
     d = np.round(np.linalg.det(R), 2)
     i = np.round(R.dot(R.T), 2)
     t = i[0, 0] + i[1, 1] + i[2, 2]
-
     if ((d == 1) and (t == 3)):
         return True
     else:
@@ -100,6 +109,7 @@ def rquater(q):
     q(w,ex,ey,ez)
     Si se trata de un angulo 0, devuelve la identidad
     """
+
     # Primera Fila
     r11 = 2*(q[0, 0]**2+q[1, 0]**2) - 1
     r12 = 2*(q[1, 0]*q[2, 0]-q[0, 0]*q[3, 0])
@@ -124,3 +134,56 @@ def cruz(a, b):
                   [a[0, 0]*b[1, 0] - a[1, 0]*b[0, 0]]])
 
     return c
+
+
+def rod_vect(p, u, th):
+    """
+    Función que retorna un vector
+    y recibe el vector de giro (no necesariamente normalizado)
+    y el theta.
+    Input: vector (p) , u, th
+    Output: vector resultante (p)
+    """
+    u1 = np.sqrt(u[1, 0]**2 + u[0, 0]**2 + u[2, 0]**2)
+    u = u/u1
+    temp = cruz(u, p)
+    pb = p*np.cos(th) + temp*np.sin(th) + u*(u.T.dot(p))*(1-np.cos(th))
+    return pb
+
+
+def productoquater(a, b):
+    """
+    Función que retorna el producto de dos cuaterniones unitarios
+    de la forma (w,ex,ey,ez)
+    Inputs: a y b
+    Output: q (quaternion de forma)(w,ex,ey,ez)
+    """
+    askew = np.array([[a[0, 0], -a[1, 0], -a[2, 0], -a[3, 0]],
+                      [a[1, 0],  a[0, 0], -a[3, 0],  a[2, 0]],
+                      [a[2, 0],  a[3, 0],  a[0, 0], -a[1, 0]],
+                      [a[3, 0], -a[2, 0],  a[1, 0],  a[0, 0]]])
+    q = askew.dot(b)
+    return q
+
+
+def vecquater(v, q):
+    """
+    Función que retorna el vector dado una transformación
+    y un cuaternion
+    Inputs: v(vector columna) y q(cuaternion de forma (w,ex,ey,ez))
+    Output: vp (vector rotado)(x,y,z)
+    """
+    qconj = np.array([[q[0, 0]],
+                      [-q[1, 0]],
+                      [-q[2, 0]],
+                      [-q[3, 0]]])
+    vq = np.array([[0],
+                   [v[0, 0]],
+                   [v[1, 0]],
+                   [v[2, 0]]])
+    temp = productoquater(q, vq)
+    vpq = productoquater(temp, qconj)
+    vp = np.array([[vpq[1, 0]],
+                   [vpq[2, 0]],
+                   [vpq[3, 0]]])
+    return vp
