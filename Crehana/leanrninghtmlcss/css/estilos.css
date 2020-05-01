@@ -1,0 +1,42 @@
+/* Todos los valores
+*{
+  color:red;
+}*/
+
+
+/* Para los que sean hermano
+h1~h2{
+  color:green
+}*/
+
+/* Para las cajas p que sí tienen un padre
+directo section
+section > p{
+  color:yellow;
+}
+*/
+/* Pseudo clases para embellecer la pagina web
+ul li{
+  list-style-type: none;
+  display: inline;
+}
+a{
+  display: inline-inline-block;
+  background-color:#01413A;
+  padding:10px;
+  color:white;
+  text-decoration: none;
+}
+a:hover{
+  background-color:purple;
+}
+
+a:active{
+  background-color: blue;
+}
+
+p:nth-child(3){
+  color:red
+}
+
+*/
