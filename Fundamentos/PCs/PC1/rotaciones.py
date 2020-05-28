@@ -190,3 +190,23 @@ def vecquater(v, q):
                    [vpq[2, 0]],
                    [vpq[3, 0]]])
     return vp
+
+
+def transmaxtrix(R, p):
+    T = np.array([[R[0, 0], R[0, 1], R[0, 2], p[0, 0]],
+                  [R[1, 0], R[1, 1], R[1, 2], p[1, 0]],
+                  [R[2, 0], R[2, 1], R[2, 2], p[2, 0]],
+                  [0, 0, 0, 1]])
+    return T
+
+
+def vect_tmatrix(T, p):
+    pt = np.array([[p[0, 0]],
+                   [p[1, 0]],
+                   [p[2, 0]],
+                   [1]])
+    pt = T.dot(pt)
+    v = np.array([[pt[0, 0]],
+                  [pt[1, 0]],
+                  [pt[2, 0]]])
+    return v

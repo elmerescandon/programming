@@ -19,7 +19,7 @@ section > p{
 ul li{
   list-style-type: none;
   display: inline;
-}
+
 a{
   display: inline-inline-block;
   background-color:#01413A;
@@ -39,4 +39,149 @@ p:nth-child(3){
   color:red
 }
 
+
+
+.caja{
+  width: 50%;
+  height: 50rem;
+  background-color: red;
+  border: 3px;
+  border-style: dashed;
+  border-color: yellow;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  padding: 10px;
+}
+
+body{
+  font-size: 10px;
+}
+
+
+p{
+  font-size: 1.2rem;
+}
+
+.padre{
+  font-size: 30px;
+
+}
+
+h1, p, div{
+  background-color: red;
+  color: yellow;
+  width: 300px;
+  height: 100px;
+  border: 10px;
+  display: inline-block;
+}
+
+a{
+  background-color: black;
+  color: white;
+  display: block;
+  width: 100px;
+}
+
+.padre{
+  width: 700px;
+
+  background-color: purple;
+}
+.caja{
+  width: 200px;
+  height: 200px;
+  font-size: 40px;
+  color: white;
+  background-color: green;
+  margin: 30px;
+}
+
+.primera{
+float: left;
+
+}
+
+.segunda{
+  float: left;
+}
+
+.limpiar{
+  clear:both;
+}
+
+.posicionada{
+  background-color: green;
+  position: absolute;
+  left:;
+  top:;
+  right: ;
+  bottom: 0px;
+}
+
+  box-sizing: border-box;
 */
+@font-face {
+  font-family: 'pettingill_cfbold';
+  src: url('../font/pettingillcf-bold-webfont.eot');
+  src: url('../font/pettingillcf-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../font/pettingillcf-bold-webfont.woff2') format('woff2'),
+       url('../font/pettingillcf-bold-webfont.woff') format('woff'),
+       url('../font/pettingillcf-bold-webfont.ttf') format('truetype'),
+       url('../font/pettingillcf-bold-webfont.svg#pettingill_cfbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.negrita{
+  font-weight: bold;
+}
+p{
+  font-family: pettingill_cfbold;
+  font-size: 20px;
+  font-style: italic;
+
+}
+.padre{
+  width: 80%;
+  max-width: 800px;
+  height: 500px;
+  background-color: green;
+  display: flex;
+
+  /* IDEA:  */
+  flex-direction: row;
+  flex-wrap:nowrap;
+  /* align-items: flex-end; */
+  /* flex-flow:row:wrap; */
+  /* align-items:baseline; */
+  justify-content: center;
+  /* align-content: space-around; */
+
+}
+
+.caja{
+  height: 100px;
+  width: 100px;
+  background-color: aqua;
+  margin: 20px;
+  padding: 10px;
+  font-size: 50px;
+  text-align: center;
+  flex-shrink: 1;
+
+  flex: 1 1 auto;
+}
+
+.dos{
+  align-self: center;
+}
