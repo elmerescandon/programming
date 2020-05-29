@@ -71,7 +71,7 @@ def ik_gradient(xd, q):
     max_iter = 1000  # Máximo número de iteraciones
     delta = 1e-9  # Intervalo de derivada numérica
     # Iteraciones: Método de Newton
-    alpha = 0.05
+    alpha = 0.08
     for i in range(max_iter):
         q1 = q[0]
         q2 = q[1]
@@ -97,7 +97,7 @@ def ik_gradient(xd, q):
 xd = np.array([[0, 2],
                [-1, 3],
                [5, 1],
-               [3, -1]])  # Matriz de Valores deseados en el espacio cartesiano
+               [-6, -4]])  # Matriz de Valores deseados en el espacio cartesiano
 qi = np.array([0, 0, 0])  # Valor inicial en el espacio articular
 qo_newton = []  # Valores obtenidos con Método Numérico de Newton
 qo_gradient = []  # Valores obtenidos con Método Numérico de Descenso de Gradiente
@@ -121,3 +121,22 @@ print("Los valores obtenidos por Gradiente son: {}".format(np.round(xo_gradient,
 # print("Los valores de las articulaciones según la cinemática inversa es:{}".format(np.round(q, 3)))
 # pd = np.round(fkine_6(q))
 # print("Los valores usados con la cinemática indirecta de comprobación{}".format(pd))
+
+# Workspace
+num = 70
+q1 = np.linspace(-np.pi, np.pi, num)
+q2 = np.linspace(-3, 3, num)
+q3 = np.linspace(-4, 4, num)
+x = []
+y = []
+
+for i in range(num):
+    for n in range(num):
+        for g in range(num):
+            a = np.array([q1[i], q2[n], q3[g]])
+            fk = fkine_6(a)
+            x.append(fk[0])
+            y.append(fk[1])
+
+plt.plot(x, y)
+plt.show()
