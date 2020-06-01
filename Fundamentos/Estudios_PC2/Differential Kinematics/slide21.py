@@ -21,4 +21,5 @@ Rx = r.srot(phi_y, 'x')
 R = sp.simplify(Rz*Ry*Rx)
 R_dot = sp.simplify(sp.diff(R, phi_r)*dr + sp.diff(R, phi_p)*dp + sp.diff(R, phi_y)*dy)
 w_skew = sp.simplify(R_dot*R.T)
+w_skew
 skew2vec(w_skew)
