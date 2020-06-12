@@ -9,4 +9,4 @@ serialToExcel.setColumns(["Nro Lectura","Valor"])
 serialToExcel.setRecordsNumber(10000)
 serialToExcel.readPort()
 
-serialToExcel.writeFile("archivo1.xls")
+serialToExcel.writeFile("archivo2_sinfiltro.xls")
