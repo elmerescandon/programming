@@ -9,7 +9,7 @@ serialToExcel.setColumns(["Nro Lectura","Valor"])
 serialToExcel.setRecordsNumber(10000)
 serialToExcel.readPort()
 
-serialToExcel.writeFile("archivo2_sinfiltro.xls")
+serialToExcel.writeFile("archivo3_confiltro.xls")
 # Archivo 1 sin filtro (Corregido)
 # Arxhivo 2 sin filtro (Corregido)
-# Archivo 3 con filtro
+# Archivo 3 con filtro (Corregido)
