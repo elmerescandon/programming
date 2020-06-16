@@ -1,0 +1,9 @@
+[
+    {
+        "host" : "localhost",
+        "sid" : "xe",
+        "port" : 1521,
+        "user" : "user01",
+        "password" : "utec"
+    }
+]

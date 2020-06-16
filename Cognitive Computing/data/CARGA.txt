@@ -1,0 +1,12 @@
+sqlldr userid=user01/tecsup control=covid.ctl
+
+create table positivos (
+uuid 	         varchar(80),
+departamento 	 varchar(30),
+provincia 	 varchar(30),
+distrito	 varchar(30),
+metododx 	 varchar(20),
+edad		 varchar(20),
+sexo		 varchar(10),
+fecha_resultado	 varchar(50)
+);

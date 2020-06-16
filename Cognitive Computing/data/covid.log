@@ -1,0 +1,56 @@
+
+SQL*Loader: Release 10.2.0.1.0 - Production on Sat Jun 13 11:37:47 2020
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+Control File:   covid.ctl
+Character Set UTF8 specified for all input.
+
+Data File:      positivos.csv
+  Bad File:     positivos.csv.bad
+  Discard File: positivos.csv.dsc 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     64 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table POSITIVOS, loaded from every logical record.
+Insert option in effect for this table: INSERT
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+UUID                                FIRST     *   ,       CHARACTER            
+DEPARTAMENTO                         NEXT     *   ,       CHARACTER            
+PROVINCIA                            NEXT     *   ,       CHARACTER            
+DISTRITO                             NEXT     *   ,       CHARACTER            
+METODODX                             NEXT     *   ,       CHARACTER            
+EDAD                                 NEXT     *   ,       CHARACTER            
+SEXO                                 NEXT     *   ,       CHARACTER            
+FECHA_RESULTADO                      NEXT     *   ,       CHARACTER            
+
+
+Table POSITIVOS:
+  183199 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 132096 bytes(64 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:        183199
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Sat Jun 13 11:37:47 2020
+Run ended on Sat Jun 13 11:37:52 2020
+
+Elapsed time was:     00:00:04.75
+CPU time was:         00:00:01.29
