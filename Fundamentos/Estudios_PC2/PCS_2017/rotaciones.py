@@ -89,7 +89,7 @@ def matriz_so3(R):
         return False
 
 
-def quaterion(R):
+def simquaterion(R):
     """
     Funcion que retorna el vector de quaterion unitario
     a partir de una matriz de rotacion.
@@ -97,11 +97,12 @@ def quaterion(R):
     Lo de vuelve de la forma:
     q = (w,ex,ey,ez)
     """
-    omega = (1/2)*(np.sqrt(1+R[0, 0]+R[1, 1]+R[2, 2]))
+    omega,ex,ey,ez = sp.symbols(r'\omega e_x e_y e_z')
+    omega = (1/2)*(sp.sqrt(1+R[0, 0]+R[1, 1]+R[2, 2]))
     ex = (1/(4*omega))*(R[2, 1]-R[1, 2])
     ey = (1/(4*omega))*(R[0, 2]-R[2, 0])
     ez = (1/(4*omega))*(R[1, 0]-R[0, 1])
-    q = np.array([[omega],
+    q = Matrix([[omega],
                   [ex],
                   [ey],
                   [ez]])
