@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-
 import cv2
 import numpy as np
 
-I1 = cv2.imread('images/pan1.jpg')
-I2 = cv2.imread('images/pan2.jpg')
+I1M = cv2.imread('images/pan1.jpg')
+I2M = cv2.imread('images/pan2.jpg')
 
+I1 = cv2.resize(I1M, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+I2 = cv2.resize(I2M, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
 I1gr = cv2.cvtColor(I1, cv2.COLOR_BGR2GRAY)
 I2gr = cv2.cvtColor(I2, cv2.COLOR_BGR2GRAY)
 

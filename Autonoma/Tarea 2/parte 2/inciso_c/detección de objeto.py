@@ -2,6 +2,11 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
+
+# Para grabar un video, cambiar esta variable a: True
+generar_video = True
+
+
 # Cargar Imagen ------------------------------------------------------
 Im = cv2.imread('kafka.jpg')
 I1 = cv2.resize(Im, None, fx=0.2, fy=0.2, interpolation=cv2.INTER_LINEAR)
@@ -30,6 +35,17 @@ flann = cv2.FlannBasedMatcher(index_params, search_params)
 # Lectura de Cámara --------------------------------------------------
 # Activar imagen
 cam = cv2.VideoCapture(0)
+
+
+
+if (generar_video):
+    # Define el codec y crea el objeto VideoWriter que almacenará el video
+    fourcc = cv2.VideoWriter_fourcc(*'MPEG')
+    out = cv2.VideoWriter('detector_libro.avi',fourcc, 20.0, (640,480))
+    # fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+    # out = cv2.VideoWriter('detector_libro._fin.mp4',fourcc, 20.0, (640,480))
+
+
 # Variable para almacenar el tamaño de la imagen
 Isize = None
 print("\nIMPORTANTE: Para detener la cámara presionar \"q\"")
@@ -42,6 +58,7 @@ while(cam.isOpened()):
             Isize = frame.shape
             print("Tamaño de la imagen: ", Isize)
         #frame = cv2.flip(frame,1)  # Voltear horizontalmente (opcional)
+        frame_video = frame.copy()
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         keypts2, descript2 = orb.detectAndCompute(frame_gray, None)
 
@@ -73,6 +90,9 @@ while(cam.isOpened()):
         else:
             print("No hay suficientes correspondencias - {}/{}".format(len(good_matches),MIN_MATCH_COUNT))
             matchesMask = None
+
+        if (generar_video):
+            out.write(frame)
         # if (generar_video): # Si se desea grabar el video, se almacena en "out"
         #     out.write(frame)
         # Imagen originalqq
@@ -92,9 +112,11 @@ while(cam.isOpened()):
     else:
         break
 
-plt.imshow()
+
 # Cuando termine de usarse la cámara, eliminar los recursos
 cam.release()
 cv2.destroyAllWindows()
 
 # Detección de características mediante FANN
+if (generar_video):
+    out.release()
