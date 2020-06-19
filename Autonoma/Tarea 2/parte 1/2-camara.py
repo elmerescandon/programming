@@ -6,7 +6,7 @@
 import cv2
 
 # Para grabar un video, cambiar esta variable a: True
-generar_video = False
+generar_video = True
 
 # Instancia que capturará el video
 cam = cv2.VideoCapture(0)
