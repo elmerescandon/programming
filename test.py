@@ -1,7 +1,6 @@
-import matplotlib.pyplot as plt
-import numpy as np
-
-
-a = np.array([-2.32063691, 6.13015199, -7.48676574, -1.58959426, 2.38121502])
-b = np.round(a, 3)
-print(b)
+x = 1
+y = 1
+z = 1
+n = 2
+test = [ [i,j,k] for i in range(x+1) for j in range(y+1) for k in range(z+1) if(i+j+k)!= n]
+print(test)
