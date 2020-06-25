@@ -20,7 +20,11 @@ function [ventanas]=ventanadoFDH_v2(x,n_seg,t_w,k_max)
     for i = 1:(pseudo_n_seg-1)
         n = floor(((i-1)*(t_w-t_o))*freq) + 1 ;
         m = n + floor(t_w*freq) - 1;
-        dummy = x(n:m);
+        if i == (pseudo_n_seg-1) 
+            dummy = x(n:end);
+        else 
+            dummy = x(n:m);
+        end
         ventanas(i) = Higuchi_FD(dummy,k_max);
     end
 end
