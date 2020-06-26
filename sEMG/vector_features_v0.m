@@ -1,7 +1,10 @@
 %% Obtención de segmentos para Clasificación
 % Sujetos: 
 % K_max = 6/8
-% Sujetos: 2,3,8,14,15,16,17,19,21,22,25,27,30,33,40
+% Sujetos: 2,3,8,14,
+%          15,16,17,
+%          19,21,22,
+%          25,27,30,33,40
 % Electrodo = 12 (Triceps)
 
 clc; clear all; close all; 

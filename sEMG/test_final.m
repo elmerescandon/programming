@@ -12,5 +12,4 @@
 clc; clear all; close all; 
 load('tabla_comparacion_T5_T17.mat');
 
-
 sample = tabla_comparacion_T5_T17{5};
