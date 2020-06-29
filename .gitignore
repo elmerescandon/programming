@@ -1,1 +1,3 @@
 *.weights
+node_modules/
+Sujetos/
