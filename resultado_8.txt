@@ -1,6 +1,0 @@
-[Command: python -u 'C:\Users\RAUL_DESKTOP\Documents\programming\Fundamentos\Ejercicios 2\8.py']
-Matrix([
-[-sin(ph1)*sin(ph3)*cos(ph2) + cos(ph1)*cos(ph3), -sin(ph1)*cos(ph2)*cos(ph3) - sin(ph3)*cos(ph1), sin(ph1)*sin(ph2)  ],
-[ sin(ph1)*cos(ph3) + sin(ph3)*cos(ph1)*cos(ph2), -sin(ph1)*sin(ph3) + cos(ph1)*cos(ph2)*cos(ph3), -sin(ph2)*cos(ph1) ],
-[                              sin(ph2)*sin(ph3),                               sin(ph2)*cos(ph3),           cos(ph2) ]])
-[Finished in 2.147s]

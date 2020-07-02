@@ -7,4 +7,4 @@ Repostitorio de programación para los cursos y proyectos de desarrollo para el 
 ### Proyetos:
   * Analisis de Señáles EMG bajo multidimensión fractal
   * Capstone Recolección de Botellas Plásticas
-  * Cheetah
+  * Crowdie: Web design and application project
