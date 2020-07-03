@@ -135,3 +135,75 @@ input{
 .post > div:hover{
   background-size: 100%;
 }
+
+#loading {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  font-style: italic;
+}
+
+main.postContainer{
+  width: 70%;
+  margin: 0 auto;
+}
+
+#post img{
+  width: 100%
+}
+
+
+#edit, #delete{
+  background: none;
+  padding: 10px;
+  margin: 40px;
+  display: none;
+}
+
+#back{
+  margin-top: 20px;
+  margin-bottom: 40px;
+  display: block;
+  width: 50px;
+  background-color: #e8f76f
+  color : black;
+  text-decoration: none;
+  text-align:  center;
+  padding: 10px;
+}
+
+#edit{
+  border: 1px solid green;
+}
+
+#delete {
+  border: none;
+  background: #ddd;
+  color: #222;
+  margin-top: 120px;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid black;
+  border-color: black transparent black transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

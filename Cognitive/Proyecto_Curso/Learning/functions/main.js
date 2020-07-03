@@ -21,6 +21,13 @@ const progressHandler = document.querySelector("#progressHandler");
 const postSubmit = document.querySelector("#postSubmit");
 const openNav = document.querySelector("#openNav");
 const closeNav = document.querySelector("#closeNav");
+const loading = document.querySelector("#loading");
+const editButton = document.querySelector("#edit");
+const deleteButton = document.querySelector("#delete");
+const singlePost = document.querySelector("#post");
+const editFormContainer = document.querySelector("#editFormContainer");
+let editMode = false;
+
 
 // Obtener la información de nuestros posts
 const getPosts = async() =>{
@@ -31,6 +38,67 @@ const getPosts = async() =>{
   });
   createChildren(postsArray);
 }
+
+
+const getPost = async() => {
+  let postId = getPostIFromURL();
+  if (loading != null){
+
+    // Si loading no está existe entonces se le va a dar un valor
+    loading.innerHTML = "<div><div class='lds-dual-ring'></div><p>Loading...</p></div>"; // Para escribir mientras esta cargando o no hay nada
+  }
+  let post = await firebase.firestore().collection("posts").doc(postId).get().catch(err=>console.log(err));
+  if (loading != null){ // Luego de que cargó todo y obtuvo la imagen, eliminará la barra de laoding
+    loading.innerHTML = "";
+  }
+
+  if(post && deleteButton != null){ // Si es que existe un post, entonces no tiene porque mostrarse en la pantalla
+    deleteButton.style.display = "block";
+  }
+
+  if(post && editButton != null){
+    editButton.style.display = "block";
+  }
+
+  createChild(post.data()); // Data mantiene los datos del post, todo
+
+}
+
+const createChild = (postData) =>{
+  if (singlePost != null){ // Si esxiste la variable post en neustr apágina
+    let div = document.createElement("div");
+
+    let img_post = document.createElement("img");
+    img_post.setAttribute("src",postData.cover);
+    img_post.setAttribute("loading","lazy");
+
+    let title = document.createElement("h3");
+    let titleNode = document.createTextNode(postData.title);// Text is an object
+    title.appendChild(titleNode);
+
+    let content = document.createElement("div");
+    let contentNode = document.createTextNode(postData.content);
+    content.appendChild(contentNode);
+
+    div.appendChild(title);
+    div.appendChild(img_post);
+    div.appendChild(content);
+
+    post.appendChild(div);
+  }
+}
+
+
+const getPostIFromURL = ()=>{
+  let postLocation = window.location.href; // NOTE: Agarra todo el URL
+  let hrefArray = postLocation.split("/");
+  let postId = hrefArray.slice(-1).pop(); // Se va a retornar el ID para poder cargar la foto de la base de datos
+
+  return postId;
+}
+
+
+
 
 const createChildren = async (arr) => {
   if (posts != null){ // Verificar si es HTML
@@ -50,6 +118,71 @@ const createChildren = async (arr) => {
     }
   }
 
+
+const appendEditForm = async() => {
+  let postId = getPostIFromURL();
+  let post = await firebase.firestore().collection("posts").doc(postId).get().catch(err=> console.log(err));
+
+  let d;
+
+  let form = document.createElement("form");
+  form.setAttribute("method","POST");
+  form.setAttribute("id","editForm");
+
+  let titleInput = document.createElement("input");
+  titleInput.setAttribute("value",post.data().title);
+  titleInput.setAttribute("id","editTitle");
+
+  let contentTextarea = document.createElement("textarea");
+  contentTextarea.setAttribute("id","editContent");
+
+  let coverFile = document.createElement("input");
+  coverFile.setAttribute("type","file");
+  coverFile.setAttribute("id","editCover");
+
+  let oldCover = document.createElement("input");
+  oldCover.setAttribute("type","hidden");
+  oldCover.setAttribute("id","oldCover");
+
+  let submit = document.createElement("input");
+  submit.setAttribute("value","Update Post");
+  submit.setAttribute("type","submit");
+  submit.setAttribute("id","editSubmit");
+
+  form.appendChild(titleInput);
+  form.appendChild(contentTextarea);
+  form.appendChild(coverFile);
+  form.appendChild(oldCover);
+  form.appendChild(submit);
+  editFormContainer.appendChild(form);
+
+  document.getElementById("editContent").value = post.data().content;
+  document.getElementById("oldCover").value = post.data().fileref;
+
+
+}
+
+if(editButton !=null){
+  editButton.addEventListener("click",()=>{
+    if(editMode == false){
+      editMode = true;
+      console.log("Enabling Edit Mode");
+
+      appendEditForm();
+    }
+    else{
+      editMode = false;
+      console.log("Disabling Edit Mode");
+
+      removeEditForm();
+    }
+  })
+}
+
+const removeEditForm = () =>{
+  let editForm = document.getElementById("editForm"); // Se llama a la funcióñ anterior
+  editFormContainer.removeChild(editForm);
+}
 
 // Asegurarse de que funcione nuestros ID de crear form
 // en ambas páginas, en caso no dar cuenta de ello al programa
@@ -125,6 +258,7 @@ if (createForm != null){
 // Check if the dom is not fully loaded - Todo cargó
 document.addEventListener("DOMContentLoaded",(e)=>{
   getPosts();
+  getPost();
 });
 
 
