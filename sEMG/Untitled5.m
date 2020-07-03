@@ -25,3 +25,8 @@ for i = 1:(ps_seg-3)
     end
     ventanas(i) = mean(dummy);  %Higuchi_FD(dummy,k_max);
 end
+
+%% 
+
+sujetos = [2,3,8,14,15,16,17,19,21,22,25,27,30,33,40];
+sujeto2 = [1,4,6,7,11,12,18,20,23,26,32,31,37,38,39];

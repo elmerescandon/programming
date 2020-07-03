@@ -1,4 +1,5 @@
-function [sD,sM]=som_fdh(sujetos,task,k_max,electrodo,map_size)
+function [sD,sM]=som_fdh(sujetos,task,k_max,electrodo)
+    %,map_size)
     close all; 
     label = cell(6*length(task)*length(sujetos),1);
 
@@ -26,15 +27,15 @@ function [sD,sM]=som_fdh(sujetos,task,k_max,electrodo,map_size)
     sD.labels = label;
     
     % Altos valores atípicos afectan la medida de pesos
-    sM = som_make(sD,'msize',map_size);
+    sM = som_make(sD);%,'msize',map_size);
     sM = som_autolabel(sM,sD);
     som_show(sM,'umat','all','empty','Labels','norm','d');
     som_show_add('label',sM,'subplot',2);
-    
-    figure(2)
-    Co=som_unit_coords(sM); U=som_umat(sM); U=U(1:2:size(U,1),1:2:size(U,2));
-    som_grid(sM,'Coord',[Co, U(:)],'Surf',U(:),'Marker','none');
-    view(-80,45), axis tight, title('Distance matrix')
+%     
+%     figure(2)
+%     Co=som_unit_coords(sM); U=som_umat(sM); U=U(1:2:size(U,1),1:2:size(U,2));
+%     som_grid(sM,'Coord',[Co, U(:)],'Surf',U(:),'Marker','none');
+%     view(-80,45), axis tight, title('Distance matrix')
 
 
     %  U-maps y labels
@@ -42,3 +43,4 @@ function [sD,sM]=som_fdh(sujetos,task,k_max,electrodo,map_size)
 %     som_show_add('label',sMap,'Textsize',8,'TextColor','r','Subplot',2)
 
 end
+
