@@ -28,15 +28,42 @@ const singlePost = document.querySelector("#post");
 const editFormContainer = document.querySelector("#editFormContainer");
 let editMode = false;
 
+let lastVisible;
+
+let postsArray = [];
+let size;
+let postsSize;
 
 // Obtener la información de nuestros posts
 const getPosts = async() =>{
-  let postsArray = [];
-  let docs = await firebase.firestore().collection("posts").get().catch(err=> console.log(err));
-  docs.forEach(doc => {
-    postsArray.push({"id":doc.id,"data":doc.data()});
+  // let postsArray = [];
+  // let docs = await firebase.firestore().collection("posts").get().catch(err=> console.log(err));
+  // docs.forEach(doc => {
+  //   postsArray.push({"id":doc.id,"data":doc.data()});
+  // });
+  // createChildren(postsArray);
+  let docs;
+  let postsRef = firebase.firestore().collection("posts").orderBy("title").limit(3);
+
+
+  let _size = await firebase.firestore().collection("posts").get();
+  size = _size.size;
+
+  await postsRef.get().then(documentSnapshots =>{
+    docs = documentSnapshots;
+    console.log(docs);
+    lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
+    console.log("last",lastVisible);
   });
-  createChildren(postsArray);
+  docs["docs"].forEach(doc=>{
+    postsArray.push({"id":doc.id,"data":doc.data()});
+  })
+
+  if(postsArray.length >0){
+    pagination.style.display = "block"; // Añadira lo de abaoj
+  }else{
+    pagination.style.display = "none";
+  }
 }
 
 
@@ -80,10 +107,9 @@ const createChild = (postData) =>{
     let contentNode = document.createTextNode(postData.content);
     content.appendChild(contentNode);
 
-    div.appendChild(title);
     div.appendChild(img_post);
+    div.appendChild(title);
     div.appendChild(content);
-
     post.appendChild(div);
   }
 }
@@ -159,6 +185,79 @@ const appendEditForm = async() => {
   document.getElementById("editContent").value = post.data().content;
   document.getElementById("oldCover").value = post.data().fileref;
 
+  document.querySelector("#editForm").addEventListener("submit",async(e)=>{
+    e.preventDefault();
+  const postId = await getPostIFromURL();
+
+    if(document.getElementById("editTitle").value != "" && document.getElementById("editContent").value != ""){
+      if(document.getElementById("editCover").files[0] != undefined ){
+        const cover = document.getElementById("editCover").files[0];
+        const storageRef = firebase.storage().ref();
+        const storageChild = storageRef.child(cover.name);
+
+        console.log("Updating file...");
+
+        const postCover = storageChild.put(cover);
+        await new Promise((resolve) =>{
+          // Nos permitirá esperar mientras el archivo sube y hacer alguna funcion
+          postCover.on("state_changed",(snapshot)=>{
+            let progress = (snapshot.bytesTransferred / snapshot.totalBytes * 100);
+            console.log(Math.trunc(progress));
+
+            if(progressHandler != null){
+              progressHandler.style.display = true;
+              console.log("Estoy acá")
+            }
+            if (postSubmit != null){
+              postSubmit.disabled = true;
+            }
+            if (progressBar != null){
+              progressBar.value = progress;
+            }
+          },(error) =>{
+            // Callback functions cada que ocurre esto, para poder manejar los erores
+            console.log(error);
+          },async()=>{
+            const downloadURL = await storageChild.getDownloadURL();
+            d = downloadURL;
+            console.log(d);
+            resolve(); // Ya acabo, entonces puede terminar con la función de waitint
+          });
+        });
+
+        const fileRef = await firebase.storage().refFromURL(d);
+
+        await storageRef.child(document.getElementById("oldCover").value).delete().catch(err=>{
+          console.log(err);
+        });
+        console.log("Previous image deleted Successfully");;
+
+        let post = {
+          title: document.getElementById("editTitle").value,
+          content: document.getElementById("editContent").value,
+          cover: d,
+          fileref: fileRef.location.path
+        }
+
+        await firebase.firestore().collection("posts").doc(postId).set(post,{merge:true});
+        location.reload();
+
+
+      }else{
+          await firebase.firestore().collection("posts").doc(postId).set({
+            title: document.getElementById("editTitle").value,
+            content: document.getElementById("editContent").value
+          },{merge:true});
+
+          location.reload();
+      }
+
+    }else{
+      console.log("You need to fill the inputs")
+    }
+
+  })
+
 
 }
 
@@ -212,7 +311,7 @@ if (createForm != null){
           console.log(Math.trunc(progress));
 
           if(progressHandler != null){
-            progressHandler.style.display = true;
+            progressHandler.style.display = "block";
           }
           if (postSubmit != null){
             postSubmit.disabled = true;
@@ -253,6 +352,21 @@ if (createForm != null){
     }
   });
 }
+
+if(deleteButton != null){
+  deleteButton.addEventListener("click", async()=>{
+    const postId = getPostIFromURL();
+    let post = await firebase.firestore().collection("posts").doc(postId).get().catch(err=>console.log(err));
+
+    const storageRef = firebase.storage().ref();
+    await storageRef.child(post.data().fileref).delete().catch(err=> console.log(err));
+
+    await firebase.firestore().collection("posts").doc(postId).delete();
+
+    window.location.replace("index.html");
+  })
+}
+
 
 
 // Check if the dom is not fully loaded - Todo cargó

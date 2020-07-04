@@ -7,6 +7,10 @@ body{
 
 }
 
+textarea{
+  font-family: "Montserrat","Trebuchet MS", Arial;
+}
+
 body *{
   transition: all 0.5s ease-in-out;
 }
@@ -40,6 +44,38 @@ header h1{
   line-height: 70px;
 }
 
+form{
+  width: 70%;
+  margin: 0 auto;
+}
+
+form *{
+  width: 100%;
+  display: block;
+  margin: 20px 0px;
+  padding: 10px;
+}
+
+form input[type="submit"]{
+  width: 120px;
+  border: none;
+  cursor: pointer;
+}
+
+#progressHandler {
+  display: none;
+
+}
+
+.post > a {
+  color: #333;
+  font-size: 18px;
+  font-weight:bold;
+  margin-top: 20px;
+  display: block;
+
+
+}
 
 .sidenav{
   height: 100%;
@@ -94,20 +130,20 @@ header h1{
   cursor: pointer;
 }
 
-form{
+/* form{
   display: flex;
   flex-direction: column;
   padding: 40px;
   max-width: 300px;
-}
+} */
 
-input{
+/* input{
   margin: 20px;
   margin-left: 30px;
   margin-right: 50%;
   max-height: 30px;
   justify-content: center;
-}
+} */
 
 #posts{
   width: 100%;
