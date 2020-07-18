@@ -1,15 +1,16 @@
 % Test 1 - Semana 14
 clc; clear all; close all;
-[sD,sM]=som_fdh([30],[5,17],10,12);
+[sD,sM]=som_fdh([30,3,5],[5,17],10,12);
 hits = sM.labels;
 map = sM.topol.msize;
 
+% subplot(1,2,1)
+% som_cplane('hexa',[10 15],'none')
+% title('Hexagonal SOM grid')
 
 neuron_grid = reshape(hits,[map(1),map(2),size(hits,2)]);
 weights_grid = reshape(sM.codebook,[map(1),map(2),size(sM.codebook,2)]); 
 
-
-% index = find(strcmp(D, '5'));
 % Consideraciones: 
     % Usar simple linkage 
     % Considerar solo los nodos adyacentes
@@ -52,7 +53,6 @@ while (length(C) > 1)
         index_cluster = limits_cell(map,C,cluster_evaluar);
         % Si no hay más vecinos, acabar algoritmo
         if isempty(index_cluster) 
-            disp("Hola");
             cluster_evaluar = cluster_evaluar+1;
             cluster_cont = cluster_cont + 1;
             break;
@@ -60,11 +60,8 @@ while (length(C) > 1)
             cluster_cont = 0;
 
         end
- 
         % Para cada clúster, escoger el vecino de menor distancia mediante 
         % single linkage
-        %         disp(C{cluster_evaluar});
-        %         disp(C{index_cluster});
         min_dist = Inf;
         for n = 1:length(index_cluster)
            dist = single_linkage(C{cluster_evaluar},C{index_cluster(n)},weights_grid);
@@ -85,14 +82,10 @@ while (length(C) > 1)
         else 
             C = {C{1:index_closest-1},C{index_closest+1:end}};  
         end
-        disp(" CLUSTER")
-        disp(C);
         cluster_evaluar = cluster_evaluar + 1; 
     end   
-    
     if length(C) == cluster_cont
         break;
     end
-
 end
         

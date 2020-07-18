@@ -13,7 +13,6 @@ function [index_cluster] = limits_cell(map,C,cluster_evaluar)
         dummy =[dummy;lims];
     end
     final_limits = unique(dummy,'rows'); 
-%     disp(final_limits);
     
     index_cluster = [];
     % Si el cluster evlauado no correponde al que se desea
@@ -22,7 +21,6 @@ function [index_cluster] = limits_cell(map,C,cluster_evaluar)
         
         if m~=cluster_evaluar
             if ~isempty(find(ismember(C{m},final_limits,'rows')))
-                %disp(find(ismember(C{m},final_limits,'rows')))
                 index_cluster = [index_cluster,m];
             end 
         end

@@ -7,7 +7,7 @@ function [sD,sM]=som_fdh(sujetos,task,k_max,electrodo)
         index_1 = (a-1)*6*length(task) + 1;
         for n = 1:6 
             for m = 1:length(task) 
-               label{index_1} = strcat('T',num2str(task(m)),'R',num2str(n));
+               label{index_1} = strcat('T',num2str(task(m)));%,'R',num2str(n));
                index_1 = index_1 + 1; 
             end
         end
@@ -32,7 +32,7 @@ function [sD,sM]=som_fdh(sujetos,task,k_max,electrodo)
     som_show(sM,'umat','all','empty','Labels','norm','d');
     som_show_add('label',sM,'subplot',2);
 %     
-%     figure(2)
+%      figure(2)
 %     Co=som_unit_coords(sM); U=som_umat(sM); U=U(1:2:size(U,1),1:2:size(U,2));
 %     som_grid(sM,'Coord',[Co, U(:)],'Surf',U(:),'Marker','none');
 %     view(-80,45), axis tight, title('Distance matrix')
